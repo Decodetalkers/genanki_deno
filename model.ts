@@ -1,13 +1,23 @@
 export interface AnkiModelFld {
   name: string;
   font?: string;
-  media?: string;
-  ord?: string;
+  media?: string[];
   rtl?: boolean;
   size?: number;
+  sticky?: boolean;
 }
 
-interface AnkiModelTmplPre {
+interface AnkiModelFldReal {
+  name: string;
+  font: string;
+  media: string[];
+  ord: number;
+  rtl: boolean;
+  size: number;
+  sticky: boolean;
+}
+
+interface AnkiModelTmplReal {
   afmt: string;
   bafmt: string;
   bqfmt: string;
@@ -108,11 +118,11 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
       this.css = css;
     }
 
-    to_json(timestamp: number, deck_id: number) {
+    to_json(timestamp: number, deck_id: number): string {
       const tmpls = [];
       for (let index = 0; index < this.templates.length; index++) {
         const unit = this.templates[index];
-        const tmp: AnkiModelTmplPre = {
+        const tmp: AnkiModelTmplReal = {
           name: unit.name,
           afmt: unit.afmt,
           bafmt: unit.bafmt,
@@ -123,6 +133,37 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
         };
         tmpls.push(tmp);
       }
+      const fields = [];
+      for (let index = 0; index < this.flds.length; index++) {
+        const element = this.flds[index];
+        const tmp: AnkiModelFldReal = {
+          name: element.name,
+          font: element.font ? element.font : "Liberation Sans",
+          media: element.media ? element.media : [],
+          rtl: element.rtl ? element.rtl : false,
+          size: element.size ? element.size : 20,
+          sticky: element.sticky ? element.sticky : false,
+          ord: index,
+        };
+        fields.push(tmp);
+      }
+      return JSON.stringify({
+        css: this.css,
+        did: deck_id,
+        flds: fields,
+        id: this.id.toString(),
+        latexPost: this.latexPost,
+        latexPre: this.latexPre,
+        mod: Math.ceil(timestamp),
+        name: this.name,
+        req: this.req,
+        sortf: this.sortf,
+        tags: [],
+        tmpls: tmpls,
+        type: this.model_type,
+        usn: -1,
+        vers: [],
+      });
     }
   };
 }
