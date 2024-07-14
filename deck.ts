@@ -17,8 +17,9 @@ export default class AnkiDeck {
   add_note(note: AnkiNote) {
     this.notes.push(note);
   }
+
   add_model(model: AnkiModel) {
-    this.models.set(model.model_id, model);
+    this.models.set(model.id, model);
   }
 
   to_json() {
@@ -72,8 +73,15 @@ export default class AnkiDeck {
       this.add_model(note.model);
     }
 
-    for (const [id, model] of this.models) {
-      models[model.model_id.toString()] = this.deck_id;
+    for (const [_id, model] of this.models) {
+      models[model.id.toString()] = model.to_json(timestamp, this.deck_id);
+    }
+    db.sql`
+      UPDATE col SET models = ${JSON.stringify(models)}
+    `;
+
+    for (const note of this.notes) {
+      
     }
   }
 }
