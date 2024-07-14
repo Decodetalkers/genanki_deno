@@ -3,6 +3,8 @@
     "dev": "deno run --watch main.ts"
   },
   "imports": {
+    "@std/datetime": "jsr:@std/datetime@^0.224.3",
+    "@zip-js/zip-js": "jsr:@zip-js/zip-js@^2.7.45",
     "sqlite": "jsr:@db/sqlite@^0.11.1"
   }
 }

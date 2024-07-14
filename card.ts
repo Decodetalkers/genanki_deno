@@ -13,17 +13,17 @@ export default class AnkiCard {
     timestamp: number,
     deck_id: number,
     note_id: number,
-    uid: UniqueUid,
+    id_gen: UniqueUid,
     due: number = 0,
   ) {
     const queue = this.suspend ? -1 : 0;
     db.sql`
       INSERT INTO cards (
-        ${uid.next()},        # id
+        ${id_gen.next()},        # id
         ${note_id},      # nid
         ${deck_id},      # did
         ${this.order},   # ord
-        ${timestamp},    # mod
+        ${Math.ceil(timestamp)},    # mod
         -1,              # usn
         0,               # type (=0 for non-Cloze)
         ${queue},        # queue

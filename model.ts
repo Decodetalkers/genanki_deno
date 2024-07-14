@@ -1,4 +1,6 @@
 export default class AnkiModel {
-  constructor() {
+  model_id: number;
+  constructor(id: number) {
+    this.model_id = id;
   }
 }
