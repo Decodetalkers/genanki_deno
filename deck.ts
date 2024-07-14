@@ -73,6 +73,7 @@ export default class AnkiDeck {
     }
 
     for (const [id, model] of this.models) {
+      models[model.model_id.toString()] = this.deck_id;
     }
   }
 }
