@@ -8,9 +8,7 @@ export default class AnkiDeck {
   name: string;
   description: string;
   notes: Array<AnkiNote> = [];
-  models: {
-    [id: number]: AnkiModel;
-  } = {};
+  models: Map<number, AnkiModel> = new Map();
   constructor(deck_id: number, name: string, description: string = "") {
     this.deck_id = deck_id;
     this.name = name;
@@ -20,7 +18,7 @@ export default class AnkiDeck {
     this.notes.push(note);
   }
   add_model(model: AnkiModel) {
-    this.models[model.model_id] = model;
+    this.models.set(model.model_id, model);
   }
 
   to_json() {
@@ -64,5 +62,17 @@ export default class AnkiDeck {
     db.sql`
       UPDATE col SET decks = ${JSON.stringify(decks)}
     `;
+
+    const [models_json_str] = db.prepare("SELECT models from col").value<
+      [string]
+    >()!;
+
+    const models = JSON.parse(models_json_str);
+    for (const note of this.notes) {
+      this.add_model(note.model);
+    }
+
+    for (const [id, model] of this.models) {
+    }
   }
 }

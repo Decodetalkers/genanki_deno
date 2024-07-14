@@ -1,4 +1,8 @@
+import AnkiModel from "./model.ts";
+
 export default class AnkiNote {
-  constructor() {
+  model: AnkiModel;
+  constructor(model: AnkiModel) {
+    this.model = model;
   }
 }
