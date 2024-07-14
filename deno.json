@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "sqlite": "jsr:@db/sqlite@^0.11.1"
+  }
+}
