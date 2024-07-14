@@ -1,7 +1,7 @@
 import { Database } from "sqlite";
-import { uid } from "./uid.ts";
+import UniqueUid from "./uid.ts";
 
-export default class Card {
+export default class AnkiCard {
   private order: number;
   private suspend: boolean;
   constructor(ord: number, suspend: boolean = false) {
@@ -13,12 +13,13 @@ export default class Card {
     timestamp: number,
     deck_id: number,
     note_id: number,
+    uid: UniqueUid,
     due: number = 0,
   ) {
     const queue = this.suspend ? -1 : 0;
     db.sql`
       INSERT INTO cards (
-        ${uid()},        # id
+        ${uid.next()},        # id
         ${note_id},      # nid
         ${deck_id},      # did
         ${this.order},   # ord

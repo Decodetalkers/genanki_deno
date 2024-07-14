@@ -1,4 +1,4 @@
-export default class Note {
+export default class AnkiNote {
   constructor() {
   }
 }

@@ -1,2 +1,5 @@
-export default class Deck {
+export default class AnkiDeck {
+  constructor() {
+
+  }
 }
