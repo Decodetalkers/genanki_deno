@@ -85,7 +85,7 @@ export default class AnkiNote {
     return this._cards;
   }
 
-  public get tags() {
+  public get tags(): string[] {
     return this._tags;
   }
 
