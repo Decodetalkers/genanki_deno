@@ -108,4 +108,5 @@ export type {
   AnkiModelTemplate,
   AnkiModelType,
   AnkiNote,
+  UniqueUid,
 };
