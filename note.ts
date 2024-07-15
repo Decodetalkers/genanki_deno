@@ -50,14 +50,24 @@ export default class AnkiNote {
 
   private card_cached: boolean = false;
   private _cards: AnkiCard[] = [];
-  constructor(model: AnkiModel, guid: string, due: number) {
+  constructor(
+    model: AnkiModel,
+    guid: string,
+    fields: string[] = [],
+    due: number = 0,
+  ) {
     this.model = model;
     this.due = due;
     this.guid = guid;
+    this.fields = fields;
   }
 
   append_field(field: string) {
     this.fields.push(field);
+  }
+
+  set_fields(fields: string[]) {
+    this.fields = fields;
   }
 
   public get cards(): AnkiCard[] {
@@ -112,12 +122,15 @@ export default class AnkiNote {
 
   private _clozeCards(): AnkiCard[] {
     const cardOrds: Set<number> = new Set();
+    const qfmt = this.model.templates[0].qfmt
+      ? this.model.templates[0].qfmt
+      : "";
     const clozeReplacements = new Set(
       [
-        ...this.model.templates[0].qfmt.matchAll(
+        ...qfmt.matchAll(
           new RegExp("{{[^}]*?cloze:(?:[^}]?:)*(.+?)}}", "g"),
         ),
-        ...this.model.templates[0].qfmt.matchAll(
+        ...qfmt.matchAll(
           new RegExp("<%cloze:(.+?)%>", "g"),
         ),
       ].map((match) => match[1]),
@@ -175,8 +188,7 @@ export default class AnkiNote {
   ) {
     this._checkInvalidHtmlTagsInFields();
     this._checkNumberModelFieldsMatchesNumFields();
-    db.sql`
-      INSERT INTO notes VALUES (
+    db.sql`INSERT INTO notes VALUES (
         ${id_gen.next()},
         ${this.guid},
         ${this.model.id},
@@ -184,10 +196,11 @@ export default class AnkiNote {
         -1,
         ${this.format_tags},
         ${this.format_fields},
+        ${this.sorted_field},
         0,
         0,
-        '',
-      )`;
+        ''
+      );`;
     const node_id = db.lastInsertRowId;
     for (const card of this.cards) {
       card.write_to_db(db, timestamp, deck_id, node_id, id_gen, this.due);

@@ -19,25 +19,24 @@ export default class AnkiCard {
     const queue = this.suspend ? -1 : 0;
     db.sql`
       INSERT INTO cards VALUES (
-        ${id_gen.next()},           # id
-        ${note_id},                 # nid
-        ${deck_id},                 # did
-        ${this.order},              # ord
-        ${Math.ceil(timestamp)},    # mod
-        -1,                         # usn
-        0,                          # type (=0 for non-Cloze)
-        ${queue},                   # queue
-        ${due},                     # due
-        0,                          # ivl
-        0,                          # factor
-        0,                          # reps
-        0,                          # lapses
-        0,                          # left
-        0,                          # odue
-        0,                          # odid
-        0,                          # flags
-        "",                         # data
-      );
-      `;
+        ${id_gen.next()},
+        ${note_id},
+        ${deck_id},
+        ${this.order},
+        ${Math.ceil(timestamp)},
+        -1,
+        0,
+        ${queue},
+        ${due},
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        ''
+      );`;
   }
 }
