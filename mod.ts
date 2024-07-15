@@ -85,7 +85,3 @@ export class AnkiPackage {
     }
   }
 }
-
-const deck = new AnkiDeck(1000, "ehllo", "bbb");
-const apkg_package = new AnkiPackage(deck);
-await apkg_package.write_to_file("hello.apkg");

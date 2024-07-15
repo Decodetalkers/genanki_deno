@@ -29,14 +29,14 @@ interface AnkiModelTmplReal {
   qfmt: string;
 }
 
-export interface AnkiModelTmpl {
-  afmt: string;
-  bafmt: string;
-  bqfmt: string;
-  did: number | null;
+export interface AnkiModelTemplate {
+  afmt?: string;
+  bafmt?: string;
+  bqfmt?: string;
+  did?: number | null;
   name: string;
-  ord: number;
-  qfmt: string;
+  ord?: number;
+  qfmt?: string;
 }
 
 const DEFAULT_LATEX_PRE = `
@@ -72,7 +72,7 @@ export default interface AnkiModel {
   readonly sortf: number;
   latexPre: string;
   latexPost: string;
-  templates: AnkiModelTmpl[];
+  templates: AnkiModelTemplate[];
   flds: AnkiModelFld[];
   to_json: (timestamp: number, deck_id: number) => void;
 }
@@ -85,10 +85,10 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
     readonly name: string;
     readonly model_type: AnkiModelType;
     readonly id: number;
-    readonly sortf: number;
+    readonly sortf: number = 0;
     latexPre: string = DEFAULT_LATEX_PRE;
     latexPost: string = DEFAULT_LATEX_POST;
-    templates: AnkiModelTmpl[] = [];
+    templates: AnkiModelTemplate[] = [];
     _req: [number, string, number[]][] = []; // what is this?
     flds: AnkiModelFld[] = [];
 
@@ -98,12 +98,22 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
       id: number,
       name: string,
       model_type: AnkiModelType,
-      sortf: number = 0,
+      fields?: AnkiModelFld[],
+      templates?: AnkiModelTemplate[],
+      sortf?: number,
     ) {
       this.name = name;
       this.id = id;
       this.model_type = model_type;
-      this.sortf = sortf;
+      if (fields) {
+        this.flds = fields;
+      }
+      if (templates) {
+        this.templates = templates;
+      }
+      if (sortf) {
+        this.sortf = sortf;
+      }
     }
 
     get req() {
@@ -123,7 +133,10 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
             fieldNames.map((name) => [name, sentinel]),
           );
           fieldValues[field] = "";
-          const rendered = Mustache.render(template.qfmt, fieldValues);
+          const rendered = Mustache.render(
+            template.qfmt ? template.qfmt : "",
+            fieldValues,
+          );
           if (!rendered.includes(sentinel)) {
             requiredFields.push(fieldOrd);
           }
@@ -138,7 +151,10 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
             );
             fieldValues[field] = sentinel;
 
-            const rendered = Mustache.render(template.qfmt, fieldValues);
+            const rendered = Mustache.render(
+              template.qfmt ? template.qfmt : "",
+              fieldValues,
+            );
             if (rendered.includes(sentinel)) {
               requiredFields.push(fieldOrd);
             }
@@ -157,7 +173,12 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
 
       return req;
     }
-    appendTemplate(template: AnkiModelTmpl) {
+
+    append_fields(fields: AnkiModelFld) {
+      this.flds.push(fields);
+    }
+
+    appendTemplate(template: AnkiModelTemplate) {
       this.templates.push(template);
     }
 
@@ -179,11 +200,11 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
         const unit = this.templates[index];
         const tmp: AnkiModelTmplReal = {
           name: unit.name,
-          afmt: unit.afmt,
-          bafmt: unit.bafmt,
-          bqfmt: unit.bqfmt,
-          qfmt: unit.qfmt,
-          did: unit.did,
+          afmt: unit.afmt ? unit.afmt : "",
+          bafmt: unit.bafmt ? unit.bafmt : "",
+          bqfmt: unit.bqfmt ? unit.bqfmt : "",
+          qfmt: unit.qfmt ? unit.qfmt : "",
+          did: unit.did ? unit.did : null,
           ord: index,
         };
         tmpls.push(tmp);
