@@ -96,10 +96,6 @@
       }
     }
   },
-  "redirects": {
-    "https://deno.land/x/mustache_ts/mustache.ts": "https://deno.land/x/mustache_ts@v0.4.1.1/mustache.ts",
-    "https://deno.land/x/zipjs/index.js": "https://deno.land/x/zipjs@v2.7.45/index.js"
-  },
   "workspace": {
     "dependencies": [
       "jsr:@db/sqlite@^0.11.1",
