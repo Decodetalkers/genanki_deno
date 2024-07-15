@@ -18,7 +18,7 @@ export default class AnkiCard {
   ) {
     const queue = this.suspend ? -1 : 0;
     db.sql`
-      INSERT INTO cards (
+      INSERT INTO cards VALUES (
         ${id_gen.next()},           # id
         ${note_id},                 # nid
         ${deck_id},                 # did

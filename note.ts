@@ -176,7 +176,7 @@ export default class AnkiNote {
     this._checkInvalidHtmlTagsInFields();
     this._checkNumberModelFieldsMatchesNumFields();
     db.sql`
-      INSERT INTO notes (
+      INSERT INTO notes VALUES (
         ${id_gen.next()},
         ${this.guid},
         ${this.model.id},
