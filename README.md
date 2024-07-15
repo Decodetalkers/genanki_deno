@@ -1,0 +1,1 @@
+# ankigenerator in typescript
