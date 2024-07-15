@@ -58,7 +58,6 @@ export default class AnkiDeck {
       [string]
     >()!;
     const decks = JSON.parse(decks_json_str);
-    console.log(decks);
     decks[this.deck_id.toString()] = this.to_json();
 
     db.sql`

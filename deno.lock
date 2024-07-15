@@ -16,6 +16,7 @@
       "jsr:@std/io@^0.224.3": "jsr:@std/io@0.224.3",
       "jsr:@std/path@0.217": "jsr:@std/path@0.217.0",
       "jsr:@std/path@^0.221.0": "jsr:@std/path@0.221.0",
+      "jsr:@std/path@^1.0.0": "jsr:@std/path@1.0.0",
       "jsr:@zip-js/zip-js@^2.7.45": "jsr:@zip-js/zip-js@2.7.45"
     },
     "jsr": {
@@ -87,6 +88,9 @@
           "jsr:@std/assert@^0.221.0"
         ]
       },
+      "@std/path@1.0.0": {
+        "integrity": "77fcb858b6e38777d1154df0f02245ba0b07e2c40ca3c0eec57c9233188c2d21"
+      },
       "@zip-js/zip-js@2.7.45": {
         "integrity": "0eb37002a4c32397f144dee55fc8e46ee24300920f0a99adb66a931d0e423e55"
       }
@@ -133,6 +137,7 @@
       "jsr:@db/sqlite@^0.11.1",
       "jsr:@std/archive@^0.224.3",
       "jsr:@std/datetime@^0.224.3",
+      "jsr:@std/path@^1.0.0",
       "jsr:@zip-js/zip-js@^2.7.45"
     ]
   }
