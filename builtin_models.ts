@@ -1,7 +1,6 @@
 import { AnkiModelTemplate, STANDER_TYPE } from "./model.ts";
 
-const BuiltinModel = AnkiModelTemplate`
-.card {
+const BuiltinModel = AnkiModelTemplate`.card {
   font-family: arial;
   font-size: 20px;
   text-align: center;

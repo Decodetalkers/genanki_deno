@@ -23,7 +23,7 @@ export default class AnkiDeck {
   }
 
   to_json() {
-    return JSON.stringify({
+    return {
       collapsed: false,
       conf: 1,
       desc: this.description,
@@ -50,7 +50,7 @@ export default class AnkiDeck {
         23598,
       ],
       usn: -1,
-    });
+    };
   }
 
   write_to_db(db: Database, timestamp: number, id_gen: UniqueUid) {

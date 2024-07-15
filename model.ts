@@ -74,7 +74,8 @@ export default interface AnkiModel {
   latexPost: string;
   templates: AnkiModelTemplate[];
   flds: AnkiModelFld[];
-  to_json: (timestamp: number, deck_id: number) => void;
+  // deno-lint-ignore no-explicit-any
+  to_json: (timestamp: number, deck_id: number) => any;
 }
 
 const AnkiModelBase = AnkiModelTemplate``;
@@ -194,7 +195,7 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
       this.css = css;
     }
 
-    to_json(timestamp: number, deck_id: number): string {
+    to_json(timestamp: number, deck_id: number) {
       const tmpls = [];
       for (let index = 0; index < this.templates.length; index++) {
         const unit = this.templates[index];
@@ -223,7 +224,7 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
         };
         fields.push(tmp);
       }
-      return JSON.stringify({
+      return {
         css: this.css,
         did: deck_id,
         flds: fields,
@@ -239,7 +240,7 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
         type: this.model_type,
         usn: -1,
         vers: [],
-      });
+      };
     }
   };
 }
