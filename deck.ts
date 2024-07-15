@@ -81,7 +81,7 @@ export default class AnkiDeck {
     `;
 
     for (const note of this.notes) {
-      
+      note.write_to_db(db, timestamp, this.deck_id, id_gen);
     }
   }
 }

@@ -27,23 +27,23 @@ class TagList extends Array<string> {
   }
 }
 
-const INVALD_HTML_TAG_RE = new RegExp(
-  "<(?!/?[a-zA-Z0-9]+(?: .*|/?)>|!--|!\[CDATA\[)(?:.|\n)*?>",
-);
-
-function fix_deprecated_model(model: AnkiModel, fields: string[]) {
-  const fixed_fields = fields;
-  if (model.model_type == CLOSE_TYPE && fields.length == 1) {
-    fixed_fields.push("");
-  }
-  return fixed_fields;
+function any_contains(arr: Array<boolean>) {
+  return !arr.some((e) => e == false);
 }
+
+function all_contains(arr: Array<boolean>) {
+  return !arr.some((e) => e == false);
+}
+
+const INVALID_HTML_TAG_RE = new RegExp(
+  /<(?!\/?[a-zA-Z0-9]+(?: .*|\/?)>|!--|!\[CDATA\[)(?:.|\n)*?>/g,
+);
 
 export default class AnkiNote {
   model: AnkiModel;
   due: number;
   fields: string[] = [];
-  tags: string[] = [];
+  _tags: TagList = new TagList();
 
   guid: string;
   _sorted_field?: number;
@@ -65,8 +65,22 @@ export default class AnkiNote {
       return this._cards;
     }
     this.card_cached = true;
-    this._cards = []; // todo;
+
+    if (this.model.model_type == CLOSE_TYPE) {
+      this._cards = this._clozeCards();
+    } else {
+      this._cards = this._frontBackCards();
+    }
+
     return this._cards;
+  }
+
+  public get tags() {
+    return this._tags;
+  }
+
+  public set tags(val: string[]) {
+    this.tags = new TagList(val);
   }
 
   public get sorted_field(): number {
@@ -85,14 +99,82 @@ export default class AnkiNote {
     return this.fields.join("\x1f");
   }
 
+  private _frontBackCards(): AnkiCard[] {
+    const rv: AnkiCard[] = [];
+    for (const [cardOrd, anyOrAll, requiredFieldOrds] of this.model.req) {
+      const op = anyOrAll === "any" ? any_contains : all_contains;
+      if (op(requiredFieldOrds.map((ord) => this.fields[ord] != undefined))) {
+        rv.push(new AnkiCard(cardOrd));
+      }
+    }
+    return rv;
+  }
+
+  private _clozeCards(): AnkiCard[] {
+    const cardOrds: Set<number> = new Set();
+    const clozeReplacements = new Set(
+      [
+        ...this.model.templates[0].qfmt.matchAll(
+          new RegExp("{{[^}]*?cloze:(?:[^}]?:)*(.+?)}}", "g"),
+        ),
+        ...this.model.templates[0].qfmt.matchAll(
+          new RegExp("<%cloze:(.+?)%>", "g"),
+        ),
+      ].map((match) => match[1]),
+    );
+    for (const fieldName of clozeReplacements) {
+      const fieldIndex = this.model.flds.findIndex(
+        (field) => field.name === fieldName,
+      );
+      const fieldValue = this.fields[fieldIndex] || "";
+      for (
+        const match of fieldValue.matchAll(
+          new RegExp("{{c(\\d+)::.+?}}", "g"),
+        )
+      ) {
+        cardOrds.add(parseInt(match[1]) - 1);
+      }
+    }
+    if (cardOrds.size === 0) {
+      cardOrds.add(0);
+    }
+    return [...cardOrds].map((ord) => new AnkiCard(ord));
+  }
+
+  private _findInvalidHtmlTagsInField(field: string): RegExpMatchArray | null {
+    return INVALID_HTML_TAG_RE.exec(field);
+  }
+
+  private _checkInvalidHtmlTagsInFields() {
+    for (const field of this.fields) {
+      const invalidTags = this._findInvalidHtmlTagsInField(field);
+      if (invalidTags) {
+        console.warn(
+          `Field contained the following invalid HTML tags. Make sure you are calling html.escape() if your field data isn't already HTML-encoded: ${
+            invalidTags.join(
+              " ",
+            )
+          }`,
+        );
+      }
+    }
+  }
+
+  private _checkNumberModelFieldsMatchesNumFields() {
+    if (this.model.flds.length !== this.fields.length) {
+      throw new Error(
+        `Number of fields in Model does not match number of fields in Note: ${this.model} has ${this.model.flds.length} fields, but ${this} has ${this.fields.length} fields.`,
+      );
+    }
+  }
   write_to_db(
     db: Database,
     timestamp: number,
     deck_id: number,
     id_gen: UniqueUid,
   ) {
-    this.fields = fix_deprecated_model(this.model, this.fields); // ??
-
+    this._checkInvalidHtmlTagsInFields();
+    this._checkNumberModelFieldsMatchesNumFields();
     db.sql`
       INSERT INTO notes (
         ${id_gen.next()},

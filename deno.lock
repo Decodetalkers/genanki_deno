@@ -71,9 +71,11 @@
     }
   },
   "redirects": {
+    "https://deno.land/x/mustache_ts/mustache.ts": "https://deno.land/x/mustache_ts@v0.4.1.1/mustache.ts",
     "https://deno.land/x/zipjs/index.js": "https://deno.land/x/zipjs@v2.7.45/index.js"
   },
   "remote": {
+    "https://deno.land/x/mustache_ts@v0.4.1.1/mustache.ts": "228a1138f55735e399b2232c87bcbb415ee462a067a10c71c14ae207c0b36a78",
     "https://deno.land/x/zipjs@v2.7.45/index.js": "cd0656371a1ae54c835377982864b3f162cdbaa2d2afa26413e9dab3a36f0348",
     "https://deno.land/x/zipjs@v2.7.45/lib/core/codec-pool.js": "bcadc41dd82392e586f8ce04791b3be92eab039fb6e09f08c86bb1b1c0419c82",
     "https://deno.land/x/zipjs@v2.7.45/lib/core/codec-worker.js": "5e8d0201842e187827d9dc67f58d751213a3e5dce213374f2ba62e2c50a1bb7c",

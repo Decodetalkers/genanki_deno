@@ -1,3 +1,5 @@
+import * as Mustache from "deno_mustache";
+
 export interface AnkiModelFld {
   name: string;
   font?: string;
@@ -66,7 +68,7 @@ export default interface AnkiModel {
   readonly name: string;
   readonly id: number;
   readonly model_type: AnkiModelType;
-  readonly req: Array<string>;
+  readonly req: [number, string, number[]][];
   readonly sortf: number;
   latexPre: string;
   latexPost: string;
@@ -87,8 +89,10 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
     latexPre: string = DEFAULT_LATEX_PRE;
     latexPost: string = DEFAULT_LATEX_POST;
     templates: AnkiModelTmpl[] = [];
-    readonly req: string[] = []; // what is this?
+    _req: [number, string, number[]][] = []; // what is this?
     flds: AnkiModelFld[] = [];
+
+    private req_cached = false;
 
     constructor(
       id: number,
@@ -102,6 +106,57 @@ export function AnkiModelTemplate(css: TemplateStringsArray) {
       this.sortf = sortf;
     }
 
+    get req() {
+      if (this.req_cached) {
+        return this._req;
+      }
+      this.req_cached = true;
+      const sentinel = "SeNtInEl";
+      const fieldNames = this.flds.map((field) => field.name);
+      const req: [number, string, number[]][] = [];
+
+      this.templates.forEach((template, templateOrd) => {
+        const requiredFields: number[] = [];
+
+        fieldNames.forEach((field, fieldOrd) => {
+          const fieldValues = Object.fromEntries(
+            fieldNames.map((name) => [name, sentinel]),
+          );
+          fieldValues[field] = "";
+          const rendered = Mustache.render(template.qfmt, fieldValues);
+          if (!rendered.includes(sentinel)) {
+            requiredFields.push(fieldOrd);
+          }
+        });
+
+        if (requiredFields.length) {
+          req.push([templateOrd, "all", requiredFields]);
+        } else {
+          fieldNames.forEach((field, fieldOrd) => {
+            const fieldValues = Object.fromEntries(
+              fieldNames.map((name) => [name, ""]),
+            );
+            fieldValues[field] = sentinel;
+
+            const rendered = Mustache.render(template.qfmt, fieldValues);
+            if (rendered.includes(sentinel)) {
+              requiredFields.push(fieldOrd);
+            }
+          });
+
+          if (!requiredFields.length) {
+            throw new Error(
+              `Could not compute required fields for this template; please check the formatting of "qfmt": ${template.qfmt}`,
+            );
+          }
+
+          req.push([templateOrd, "any", requiredFields]);
+        }
+      });
+      this._req = req;
+
+      return req;
+    }
     appendTemplate(template: AnkiModelTmpl) {
       this.templates.push(template);
     }
