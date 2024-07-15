@@ -1,4 +1,4 @@
-import * as Mustache from "deno_mustache";
+import * as Mustache from "./mustache.ts";
 
 export interface AnkiModelFld {
   name: string;

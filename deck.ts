@@ -22,7 +22,8 @@ export default class AnkiDeck {
     this.models.set(model.id, model);
   }
 
-  to_json() {
+  // deno-lint-ignore no-explicit-any
+  to_json(): any {
     return {
       collapsed: false,
       conf: 1,

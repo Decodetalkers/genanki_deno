@@ -1,6 +1,6 @@
 {
   "name": "@nobody/anki-deno",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "exports": "./mod.ts",
   "tasks": {
     "dev": "deno run --watch main.ts"
@@ -10,7 +10,6 @@
     "@std/datetime": "jsr:@std/datetime@^0.224.3",
     "@std/path": "jsr:@std/path@^1.0.0",
     "@zip-js/zip-js": "jsr:@zip-js/zip-js@^2.7.45",
-    "deno_mustache": "https://deno.land/x/mustache_ts@v0.4.1.1/mustache.ts",
     "sqlite": "jsr:@db/sqlite@^0.11.1"
   }
 }
