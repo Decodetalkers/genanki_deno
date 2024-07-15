@@ -1,5 +1,5 @@
-import { Database } from "sqlite";
-import UniqueUid from "./uid.ts";
+import type { Database } from "sqlite";
+import type UniqueUid from "./uid.ts";
 
 export default class AnkiCard {
   private order: number;

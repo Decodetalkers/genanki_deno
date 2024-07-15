@@ -1,4 +1,7 @@
 {
+  "name": "@nobody/anki-deno",
+  "version": "0.1.1",
+  "exports": "./mod.ts",
   "tasks": {
     "dev": "deno run --watch main.ts"
   },

@@ -1,6 +1,6 @@
-import { Database } from "sqlite";
-import AnkiModel from "./model.ts";
-import UniqueUid from "./uid.ts";
+import type { Database } from "sqlite";
+import type AnkiModel from "./model.ts";
+import type UniqueUid from "./uid.ts";
 import { CLOSE_TYPE } from "./model.ts";
 import AnkiCard from "./card.ts";
 

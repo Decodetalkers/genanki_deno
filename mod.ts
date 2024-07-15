@@ -1,4 +1,4 @@
-import { Database } from "sqlite";
+import type { Database } from "sqlite";
 import AnkiDeck from "./deck.ts";
 import apkg_db_init from "./schema.ts";
 import UniqueUid from "./uid.ts";
@@ -85,3 +85,27 @@ export class AnkiPackage {
     }
   }
 }
+
+export * as BuiltinModels from "./builtin_models.ts";
+
+import type AnkiCard from "./card.ts";
+
+import type AnkiNote from "./note.ts";
+
+import type {
+  AnkiModelBase,
+  AnkiModelTemplate,
+  AnkiModelType,
+} from "./model.ts";
+
+import type AnkiModel from "./model.ts";
+
+export type {
+  AnkiCard,
+  AnkiDeck,
+  AnkiModel,
+  AnkiModelBase,
+  AnkiModelTemplate,
+  AnkiModelType,
+  AnkiNote,
+};

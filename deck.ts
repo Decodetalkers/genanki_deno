@@ -1,7 +1,7 @@
-import { Database } from "sqlite";
-import UniqueUid from "./uid.ts";
-import AnkiModel from "./model.ts";
-import AnkiNote from "./note.ts";
+import type { Database } from "sqlite";
+import type UniqueUid from "./uid.ts";
+import type AnkiModel from "./model.ts";
+import type AnkiNote from "./note.ts";
 
 export default class AnkiDeck {
   deck_id: number;
