@@ -53,9 +53,9 @@ export class AnkiPackage {
     const dbData = await Deno.readFile(dbPath);
     const zipFileWriter: BlobWriter = new BlobWriter();
 
-    const zipWritter = new ZipWriter(zipFileWriter);
+    const zipWriter = new ZipWriter(zipFileWriter);
     const dbDataReader = new Uint8ArrayReader(dbData);
-    await zipWritter.add("collection.anki2", dbDataReader);
+    await zipWriter.add("collection.anki2", dbDataReader);
 
     const media_json: { [index: number]: string } = {};
 
@@ -65,14 +65,14 @@ export class AnkiPackage {
       media_json[index] = baseName;
       const media_data = await Deno.readFile(media);
       const mvDataReader = new Uint8ArrayReader(media_data);
-      await zipWritter.add(baseName, mvDataReader);
+      await zipWriter.add(baseName, mvDataReader);
     }
 
     const mediaReader = new TextReader(JSON.stringify(media_json));
 
-    zipWritter.add("media", mediaReader);
+    zipWriter.add("media", mediaReader);
 
-    zipWritter.close();
+    zipWriter.close();
 
     const zipFileBlob: Blob = await zipFileWriter.getData();
 
