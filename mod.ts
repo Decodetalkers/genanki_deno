@@ -35,9 +35,14 @@ export class AnkiPackage {
   }
 
   async write_to_file(file: string, timestamp?: number) {
-    const db = apkg_db_init("tmp.db");
+    const tmpDir = await Deno.makeTempDir();
+    const date_ob = new Date();
+    const dbName = date_ob.getTime().toString() + ".db";
+
+    const dbPath = path.join(tmpDir, dbName);
+
+    const db = apkg_db_init(dbPath);
     if (!timestamp) {
-      const date_ob = new Date();
       timestamp = date_ob.getTime();
     }
     const id_gen = new UniqueUid(Math.ceil(timestamp * 1000));
@@ -45,7 +50,7 @@ export class AnkiPackage {
 
     db.close();
 
-    const dbData = await Deno.readFile("tmp.db");
+    const dbData = await Deno.readFile(dbPath);
     const zipFileWriter: BlobWriter = new BlobWriter();
 
     const zipWritter = new ZipWriter(zipFileWriter);
