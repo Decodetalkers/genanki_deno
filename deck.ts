@@ -23,34 +23,34 @@ export default class AnkiDeck {
   }
 
   to_json() {
-    return `{
-      "collapsed": False,
-      "conf": 1,
-      "desc": ${this.description},
-      "dyn": 0,
-      "extendNew": 0,
-      "extendRev": 50,
-      "id": ${this.deck_id},
-      "lrnToday": [
+    return JSON.stringify({
+      collapsed: false,
+      conf: 1,
+      desc: this.description,
+      dyn: 0,
+      extendNew: 0,
+      extendRev: 50,
+      id: this.deck_id,
+      lrnToday: [
         163,
         2,
       ],
-      "mod": 1425278051,
-      "name": ${this.name},
-      "newToday": [
+      mod: 1425278051,
+      name: this.name,
+      newToday: [
         163,
         2,
       ],
-      "revToday": [
+      revToday: [
         163,
         0,
       ],
-      "timeToday": [
+      timeToday: [
         163,
         23598,
       ],
-      "usn": -1,
-    }`;
+      usn: -1,
+    });
   }
 
   write_to_db(db: Database, timestamp: number, id_gen: UniqueUid) {
