@@ -3,7 +3,7 @@ import type UniqueUid from "./uid.ts";
 import type AnkiModel from "./model.ts";
 import type AnkiNote from "./note.ts";
 
-/// Decribe the data of Deck in Anki
+/// Describe the data of Deck in Anki
 export default class AnkiDeck {
   deck_id: number;
   name: string;

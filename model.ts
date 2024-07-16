@@ -69,7 +69,7 @@ const STANDER_TYPE: AnkiModelType = 1;
 export { CLOSE_TYPE, STANDER_TYPE };
 
 /*
- * Decribe what a model need, base type
+ * Describe what a model need, base type
  */
 export default interface AnkiModel {
   css: string;
