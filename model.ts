@@ -59,11 +59,20 @@ const DEFAULT_LATEX_POST = `
   \\end{document}
 `;
 
-// 0 is standard, 1 for cloze
+/**
+ * 0 is standard, 1 for cloze
+ */
 export type AnkiModelType = 0 | 1;
 
+
+/**
+ * CLOSE_TYPE of ANKI
+ */
 const CLOSE_TYPE: AnkiModelType = 0;
 
+/**
+ * STANDER_TYPE for ANKI
+ */
 const STANDER_TYPE: AnkiModelType = 1;
 
 export { CLOSE_TYPE, STANDER_TYPE };
@@ -72,9 +81,21 @@ export { CLOSE_TYPE, STANDER_TYPE };
  * Describe what a model need, base type
  */
 export default interface AnkiModel {
+  /**
+   * css in model
+   */
   css: string;
+  /**
+   * the name of model
+   */
   readonly name: string;
+  /**
+   * The unique id of model
+   */
   readonly id: number;
+  /**
+   * the type of model
+   */
   readonly model_type: AnkiModelType;
   readonly req: [number, string, number[]][];
   readonly sortf: number;
@@ -82,6 +103,10 @@ export default interface AnkiModel {
   latexPost: string;
   templates: AnkiModelTemplate[];
   flds: AnkiModelFld[];
+  /**
+   * Generate the data
+   * NOTE: do not use it, it will be auto used when be exported to database
+   */
   // deno-lint-ignore no-explicit-any
   to_json: (timestamp: number, deck_id: number) => any;
 }
@@ -125,6 +150,9 @@ export class AnkiModelBase implements AnkiModel {
     }
   }
 
+  /**
+   * NOTE: I do not know that is this. wiki does know too
+   */
   get req(): [number, string, number[]][] {
     if (this.req_cached) {
       return this._req;
@@ -183,6 +211,9 @@ export class AnkiModelBase implements AnkiModel {
     return req;
   }
 
+  /**
+   * Add new field to model
+   */
   append_fields(fields: AnkiModelFld) {
     this.flds.push(fields);
   }
@@ -191,6 +222,9 @@ export class AnkiModelBase implements AnkiModel {
     this.templates.push(template);
   }
 
+  /**
+   * set the latexPre, please read the wiki
+   */
   set_latexPre(latexPre: string) {
     this.latexPre = latexPre;
   }
@@ -199,10 +233,17 @@ export class AnkiModelBase implements AnkiModel {
     this.latexPost = latexPost;
   }
 
+  /**
+   * set css, but it is suggested to use the class factory to set css
+   */
   set_css(css: string) {
     this.css = css;
   }
 
+  /**
+   * Generate the data
+   * NOTE: do not use it, it will be auto used when be exported to database
+   */
   // deno-lint-ignore no-explicit-any
   to_json(timestamp: number, deck_id: number): any {
     const tmpls = [];
