@@ -1,6 +1,10 @@
 import type { Database } from "sqlite";
 import type UniqueUid from "./uid.ts";
 
+
+/*
+ * Describe the card infomation of Anki
+ */
 export default class AnkiCard {
   private order: number;
   private suspend: boolean;

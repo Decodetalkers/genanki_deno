@@ -1,4 +1,4 @@
-import type { AnkiModel } from "./mod.ts";
+import type AnkiModel from "./model.ts";
 import { AnkiModelTemplate, STANDER_TYPE } from "./model.ts";
 
 const BuiltinModel = AnkiModelTemplate`.card {

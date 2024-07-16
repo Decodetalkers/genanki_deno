@@ -1,5 +1,8 @@
 import * as Mustache from "./mustache.ts";
 
+/*
+ * Field information in model, please read the wiki of anki
+ */
 export interface AnkiModelFld {
   name: string;
   font?: string;
@@ -28,7 +31,9 @@ interface AnkiModelTmplReal {
   ord: number;
   qfmt: string;
 }
-
+/*
+ * Field template in model, please read the wiki of anki
+ */
 export interface AnkiModelTemplate {
   afmt?: string;
   bafmt?: string;
@@ -63,6 +68,9 @@ const STANDER_TYPE: AnkiModelType = 1;
 
 export { CLOSE_TYPE, STANDER_TYPE };
 
+/*
+ * Decribe what a model need, base type
+ */
 export default interface AnkiModel {
   css: string;
   readonly name: string;
@@ -78,6 +86,9 @@ export default interface AnkiModel {
   to_json: (timestamp: number, deck_id: number) => any;
 }
 
+/*
+ * The most base model , whose css is empty
+ */
 export class AnkiModelBase implements AnkiModel {
   css: string = "";
   readonly name: string;
@@ -242,6 +253,10 @@ export class AnkiModelBase implements AnkiModel {
   }
 }
 
+/*
+ * the model factory of AnkiModel
+ * pass css into it, and you get a class
+ */
 export function AnkiModelTemplate(
   css: TemplateStringsArray,
 ): typeof AnkiModelBase {

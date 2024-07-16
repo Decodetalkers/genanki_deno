@@ -1,35 +1,65 @@
+/*
+ * @module
+ *
+ * This module contains all types needed to gen apkg
+ *
+ * @example
+ * ```ts
+ * import { BuiltinModels ,AnkiDeck, AnkiPackage, AnkiNote } from "@nobody/anki-deno";
+ * const AnkiModelBase = BuiltinModels.AnkiModelBase;
+ *
+ * const my_deck = new AnkiDeck(
+ *   2059400110,
+ *   "Example Deck",
+ * );
+ * 
+ * const my_note = new AnkiNote(
+ *   BASE_MODEL,
+ *   "abcd",
+ *   ["What is the capital of France?", "Paris"],
+ * );
+ * 
+ * my_deck.add_note(my_note);
+ * 
+ * const min_package = new AnkiPackage(my_deck);
+ * 
+ * await min_package.write_to_file("abcd.apkg");
+ * ```
+ */
+
 export * as BuiltinModels from "./builtin_models.ts";
 
-import type AnkiCard from "./card.ts";
+import AnkiCard from "./card.ts";
 
-import type AnkiNote from "./note.ts";
+import AnkiNote from "./note.ts";
 
-import type {
+import {
   AnkiModelBase,
   AnkiModelTemplate,
-  AnkiModelType,
   CLOSE_TYPE,
   STANDER_TYPE,
 } from "./model.ts";
 
+import type { AnkiModelType } from "./model.ts";
+
 import type AnkiModel from "./model.ts";
 
-import type AnkiDeck from "./deck.ts";
+import AnkiDeck from "./deck.ts";
 
-import type UniqueUid from "./uid.ts";
+import UniqueUid from "./uid.ts";
 
-import type AnkiPackage from "./package.ts";
+import AnkiPackage from "./package.ts";
 
-export type {
+export {
   AnkiCard,
   AnkiDeck,
-  AnkiModel,
   AnkiModelBase,
   AnkiModelTemplate,
-  AnkiModelType,
   AnkiNote,
   AnkiPackage,
   CLOSE_TYPE,
   STANDER_TYPE,
   UniqueUid,
 };
+
+export type { AnkiModel, AnkiModelType };
