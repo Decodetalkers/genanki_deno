@@ -6,7 +6,7 @@
  * @example
  * ```ts
  * import { BuiltinModels ,AnkiDeck, AnkiPackage, AnkiNote } from "@nobody/anki-deno";
- * const AnkiModelBase = BuiltinModels.AnkiModelBase;
+ * const BASE_MODEL = BuiltinModels.BASE_MODEL;
  *
  * const my_deck = new AnkiDeck(
  *   2059400110,
