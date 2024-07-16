@@ -11,6 +11,8 @@ name: Deno
 on:
   push:
     branches: ["master"]
+    tags:
+      - v*
   pull_request:
     branches: ["master"]
 
@@ -40,3 +42,14 @@ jobs:
 
       - name: Run tests
         run: deno test -A
+
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: test
+    steps:
+      - name: Publish lib
+        run: deno publish
