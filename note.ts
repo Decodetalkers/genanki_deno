@@ -39,6 +39,9 @@ const INVALID_HTML_TAG_RE = new RegExp(
   /<(?!\/?[a-zA-Z0-9]+(?: .*|\/?)>|!--|!\[CDATA\[)(?:.|\n)*?>/g,
 );
 
+/**
+ * Note of Anki
+ */
 export default class AnkiNote {
   model: AnkiModel;
   due: number;

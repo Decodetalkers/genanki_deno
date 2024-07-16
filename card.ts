@@ -2,7 +2,7 @@ import type { Database } from "sqlite";
 import type UniqueUid from "./uid.ts";
 
 
-/*
+/**
  * Describe the card information of Anki
  */
 export default class AnkiCard {

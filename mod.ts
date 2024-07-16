@@ -1,4 +1,4 @@
-/*
+/**
  * @module
  *
  * This module contains all types needed to gen apkg

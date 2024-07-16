@@ -1,6 +1,6 @@
 import * as Mustache from "./mustache.ts";
 
-/*
+/**
  * Field information in model, please read the wiki of anki
  */
 export interface AnkiModelFld {
