@@ -1,5 +1,7 @@
 import * as Mustache from "./mustache.ts";
 
+import {cached_property} from "@nobody/cached-property"
+
 /**
  * Field information in model, please read the wiki of anki
  */
@@ -125,7 +127,6 @@ export class AnkiModelBase implements AnkiModel {
   _req: [number, string, number[]][] = []; // what is this?
   flds: AnkiModelFld[] = [];
 
-  protected req_cached = false;
 
   constructor(
     id: number,
@@ -152,11 +153,8 @@ export class AnkiModelBase implements AnkiModel {
   /**
    * NOTE: I do not know that is this. wiki does know too
    */
+  @cached_property
   get req(): [number, string, number[]][] {
-    if (this.req_cached) {
-      return this._req;
-    }
-    this.req_cached = true;
     const sentinel = "SeNtInEl";
     const fieldNames = this.flds.map((field) => field.name);
     const req: [number, string, number[]][] = [];
