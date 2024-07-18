@@ -1,4 +1,4 @@
-import type { Database } from "sqlite";
+import type { Database } from "@db/sqlite";
 import type UniqueUid from "./uid.ts";
 import type AnkiModel from "./model.ts";
 import type AnkiNote from "./note.ts";

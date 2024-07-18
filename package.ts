@@ -1,4 +1,4 @@
-import type { Database } from "sqlite";
+import type { Database } from "@db/sqlite";
 import AnkiDeck from "./deck.ts";
 import apkg_db_init from "./schema.ts";
 import UniqueUid from "./uid.ts";

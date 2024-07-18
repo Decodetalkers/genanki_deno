@@ -9,10 +9,8 @@ const BuiltinModel = AnkiModelTemplate`.card {
   background-color: white;
 }`;
 
-
 /**
  * Basic Model Class
- *
  */
 export const BASE_MODEL: AnkiModel = new BuiltinModel(
   1559383000,
@@ -39,7 +37,6 @@ export const BASE_MODEL: AnkiModel = new BuiltinModel(
 
 /**
  * Basic Model Class
- *
  */
 export const BASIC_AND_REVERSED_CARD_MODEL: AnkiModel = new BuiltinModel(
   1485830179,

@@ -64,7 +64,6 @@ const DEFAULT_LATEX_POST = `
  */
 export type AnkiModelType = 0 | 1;
 
-
 /**
  * CLOSE_TYPE of ANKI
  */

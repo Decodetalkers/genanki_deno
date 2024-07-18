@@ -6,10 +6,9 @@
     "dev": "deno run --watch main.ts"
   },
   "imports": {
-    "@std/archive": "jsr:@std/archive@^0.224.3",
     "@std/datetime": "jsr:@std/datetime@^0.224.3",
     "@std/path": "jsr:@std/path@^1.0.0",
     "@zip-js/zip-js": "jsr:@zip-js/zip-js@^2.7.45",
-    "sqlite": "jsr:@db/sqlite@^0.11.1"
+    "@db/sqlite": "jsr:@db/sqlite@^0.11.1"
   }
 }

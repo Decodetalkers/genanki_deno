@@ -1,6 +1,5 @@
-import type { Database } from "sqlite";
+import type { Database } from "@db/sqlite";
 import type UniqueUid from "./uid.ts";
-
 
 /**
  * Describe the card information of Anki

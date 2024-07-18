@@ -1,4 +1,4 @@
-import { Database } from "sqlite";
+import { Database } from "@db/sqlite";
 
 const apkg_db_init = (db_name: string) => {
   const db = new Database(db_name);
