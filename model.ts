@@ -1,6 +1,6 @@
 import * as Mustache from "./mustache.ts";
 
-import {cached_property} from "@nobody/cached-property"
+import { cached_property } from "@nobody/cached-property";
 
 /**
  * Field information in model, please read the wiki of anki
@@ -127,7 +127,6 @@ export class AnkiModelBase implements AnkiModel {
   _req: [number, string, number[]][] = []; // what is this?
   flds: AnkiModelFld[] = [];
 
-
   constructor(
     id: number,
     name: string,
@@ -248,11 +247,11 @@ export class AnkiModelBase implements AnkiModel {
       const unit = this.templates[index];
       const tmp: AnkiModelTmplReal = {
         name: unit.name,
-        afmt: unit.afmt ? unit.afmt : "",
-        bafmt: unit.bafmt ? unit.bafmt : "",
-        bqfmt: unit.bqfmt ? unit.bqfmt : "",
-        qfmt: unit.qfmt ? unit.qfmt : "",
-        did: unit.did ? unit.did : null,
+        afmt: unit.afmt || "",
+        bafmt: unit.bafmt || "",
+        bqfmt: unit.bqfmt || "",
+        qfmt: unit.qfmt || "",
+        did: unit.did || null,
         ord: index,
       };
       tmpls.push(tmp);
@@ -262,11 +261,11 @@ export class AnkiModelBase implements AnkiModel {
       const element = this.flds[index];
       const tmp: AnkiModelFldReal = {
         name: element.name,
-        font: element.font ? element.font : "Liberation Sans",
-        media: element.media ? element.media : [],
-        rtl: element.rtl ? element.rtl : false,
-        size: element.size ? element.size : 20,
-        sticky: element.sticky ? element.sticky : false,
+        font: element.font || "Liberation Sans",
+        media: element.media || [],
+        rtl: element.rtl || false,
+        size: element.size || 20,
+        sticky: element.sticky || false,
         ord: index,
       };
       fields.push(tmp);
