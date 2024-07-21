@@ -7,9 +7,9 @@
   },
   "imports": {
     "@db/sqlite": "jsr:@db/sqlite@^0.11.1",
-    "@nobody/cached-property": "jsx:@nobody/cached-property@^0.2.3",
+    "@nobody/cached-property": "jsr:@nobody/cached-property@^0.2.3",
     "@std/datetime": "jsr:@std/datetime@^0.224.3",
-    "@std/path": "jsx:@std/path@^1.0.1",
-    "@zip-js/zip-js": "jsx:@zip-js/zip-js@^2.7.47"
+    "@std/path": "jsr:@std/path@^1.0.1",
+    "@zip-js/zip-js": "jsr:@zip-js/zip-js@^2.7.47"
   }
 }
