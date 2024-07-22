@@ -1,6 +1,6 @@
 # genanki in typescript
 
-[![JSR](https://jsr.io/badges/@nobody/anki-deno)](https://jsr.io/@nobody/anki-deno)
+[![JSR](https://jsr.io/badges/@nobody/genanki-deno)](https://jsr.io/@nobody/genanki-deno)
 
 just a typescript version of genanki
 
