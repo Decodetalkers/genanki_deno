@@ -1,5 +1,5 @@
 {
-  "name": "@nobody/anki-deno",
+  "name": "@nobody/genanki-deno",
   "version": "0.1.8",
   "exports": "./mod.ts",
   "tasks": {
