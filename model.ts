@@ -167,7 +167,7 @@ export class AnkiModelBase implements AnkiModel {
         );
         fieldValues[field] = "";
         const rendered = Mustache.render(
-          template.qfmt ? template.qfmt : "",
+          template.qfmt || "",
           fieldValues,
         );
         if (!rendered.includes(sentinel)) {
@@ -185,7 +185,7 @@ export class AnkiModelBase implements AnkiModel {
           fieldValues[field] = sentinel;
 
           const rendered = Mustache.render(
-            template.qfmt ? template.qfmt : "",
+            template.qfmt || "",
             fieldValues,
           );
           if (rendered.includes(sentinel)) {
