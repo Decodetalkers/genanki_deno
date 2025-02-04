@@ -298,6 +298,6 @@ export function AnkiModelTemplate(
   css: TemplateStringsArray,
 ): typeof AnkiModelBase {
   return class extends AnkiModelBase {
-    css: string = css.join("");
+    override css: string = css.join("");
   };
 }
