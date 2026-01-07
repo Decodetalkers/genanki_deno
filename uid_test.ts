@@ -1,6 +1,6 @@
 import UniqueUid from "./uid.ts";
 
-import { assertEquals } from "jsr:@std/assert";
+import { assertEquals } from "@std/assert";
 
 Deno.test(function addTest() {
   const uid = new UniqueUid(-1);
