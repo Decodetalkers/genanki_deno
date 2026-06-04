@@ -69,12 +69,12 @@ export type AnkiModelType = 0 | 1;
 /**
  * CLOSE_TYPE of ANKI
  */
-const CLOSE_TYPE: AnkiModelType = 0;
+const CLOSE_TYPE: AnkiModelType = 1;
 
 /**
  * STANDER_TYPE for ANKI
  */
-const STANDER_TYPE: AnkiModelType = 1;
+const STANDER_TYPE: AnkiModelType = 0;
 
 export { CLOSE_TYPE, STANDER_TYPE };
 
