@@ -16,12 +16,12 @@ class TagList extends Array<string> {
     this.push(...tags);
   }
 
-  push(...items: string[]): number {
+  override push(...items: string[]): number {
     items.forEach(TagList.validateTag);
     return super.push(...items);
   }
 
-  splice(start: number, deleteCount: number, ...items: string[]): string[] {
+  override splice(start: number, deleteCount: number, ...items: string[]): string[] {
     items.forEach(TagList.validateTag);
     return super.splice(start, deleteCount, ...items);
   }
