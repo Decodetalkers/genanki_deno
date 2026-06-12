@@ -3,7 +3,7 @@
   "version": "0.1.10",
   "exports": "./mod.ts",
   "tasks": {
-    "dev": "deno run --watch main.ts"
+    "example": "deno run -A ./test/minapkg.ts"
   },
   "imports": {
     "@db/sqlite": "jsr:@db/sqlite@^0.11.1",
