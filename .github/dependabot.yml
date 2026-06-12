@@ -6,8 +6,9 @@
 # docs
 # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 version: 2
+enable-beta-ecosystems: true
 updates:
-  - package-ecosystem: "cargo"
+  - package-ecosystem: "deno"
     directory: "/"
     schedule:
       interval: "weekly"
@@ -15,17 +16,7 @@ updates:
       # version bump and thus consume unnecessary workers during release, thus
       # let's open new ones on Wednesday
       day: "wednesday"
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-patch"]
-    groups:
-      # Only update polars as a whole as there are many subcrates that need to
-      # be updated at once. We explicitly depend on some of them, so batch their
-      # updates to not take up dependabot PR slots with dysfunctional PRs
-      polars:
-        patterns:
-          - "polars"
-          - "polars-*"
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
