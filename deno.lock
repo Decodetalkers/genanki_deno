@@ -6,6 +6,7 @@
     "jsr:@nobody/cached-property@~0.2.3": "0.2.4",
     "jsr:@std/assert@0.217": "0.217.0",
     "jsr:@std/assert@^1.0.16": "1.0.19",
+    "jsr:@std/datetime@~0.225.7": "0.225.7",
     "jsr:@std/encoding@1": "1.0.10",
     "jsr:@std/fmt@1": "1.0.9",
     "jsr:@std/fs@1": "1.0.23",
@@ -45,6 +46,9 @@
         "jsr:@std/internal"
       ]
     },
+    "@std/datetime@0.225.7": {
+      "integrity": "e62c6c454a0ecfc2918fe41e7a621e0f334a6f82605e98fd32eb1e6371999328"
+    },
     "@std/encoding@1.0.10": {
       "integrity": "8783c6384a2d13abd5e9e87a7ae0520a30e9f56aeeaa3bdf910a3eaaf5c811a1"
     },
@@ -82,7 +86,7 @@
       "jsr:@db/sqlite@~0.11.1",
       "jsr:@nobody/cached-property@~0.2.3",
       "jsr:@std/assert@^1.0.16",
-      "jsr:@std/datetime@~0.224.3",
+      "jsr:@std/datetime@~0.225.7",
       "jsr:@std/path@^1.0.1",
       "jsr:@zip-js/zip-js@^2.7.47"
     ]
